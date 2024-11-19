@@ -17,7 +17,7 @@ function Createtodo() {
             <button style={{margin: "10px", padding: "10px"}} onClick={
                  async () => {
                     const token = localStorage.getItem("authtoken")
-                    const response = await fetch("http://localhost:3000/createtodo",{
+                    const response = await fetch(`${import.meta.env.VITE_BURL}/createtodo`,{
                         method: "POST",
                         body: JSON.stringify(data),
                         headers: {
