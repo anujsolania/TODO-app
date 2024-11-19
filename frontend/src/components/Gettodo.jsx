@@ -10,7 +10,7 @@ function Gettodo({proptodos}) {
                 <button onClick={
                     async () => {
                         const token = localStorage.getItem("authtoken")
-                        const response = await fetch(`http://localhost:3000/${todo._id}`,{
+                        const response = await fetch(`${import.meta.env.VITE_BURL}/${todo._id}`,{
                             method: "PATCH",
                             headers: {"authorization": token}
                         })
@@ -21,7 +21,7 @@ function Gettodo({proptodos}) {
                 <button onClick={
                     async () => {
                         const token = localStorage.getItem("authtoken")
-                        const response = await fetch(`http://localhost:3000/${todo._id}`,{
+                        const response = await fetch(`${import.meta.env.VITE_BURL}/${todo._id}`,{
                             method: "DELETE",
                             headers: {"authorization": token}
                         })

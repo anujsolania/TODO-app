@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import Createtodo from './components/Createtodo'
-import Gettodo from './components/GetTodo'
+import Gettodo from "./components/Gettodo"
 import SignupLogin from './components/SignupLogin'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ function App() {
 
   async function fetchTodos() {
     const token = localStorage.getItem("authtoken")
-    const response = await fetch("http://localhost:3000/gettodos",{
+    const response = await fetch(`${import.meta.env.VITE_BURL}/gettodos`,{
       method: "GET",
       headers:{
         "authorization": token

@@ -42,7 +42,7 @@ function SignupLogin() {
             <br></br>
             <button onClick={
                 async () => {
-                    const response = await fetch("http://localhost:3000/signup",{
+                    const response = await fetch(`${import.meta.env.VITE_BURL}/signup`,{
                         method: "POST",
                         body: JSON.stringify({username,password}),
                         headers: {"content-type": "application/json"}
@@ -53,7 +53,7 @@ function SignupLogin() {
             } style={{margin: "5px", padding: "5px", backgroundColor: "skyblue"}} >SIGNUP</button>
             <button onClick={
                 async () => {
-                    const response = await fetch("http://localhost:3000/signin",{
+                    const response = await fetch(`${import.meta.env.VITE_BURL}/signin`,{
                         method: "POST",
                         body: JSON.stringify({username,password}),
                         headers: {"content-type": "application/json"}
