@@ -7,7 +7,9 @@ const middleware = require("./midddleware/middleware")
 
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: "*", // Allow all origins
+}));
 
 //SIGNUP
 app.post("/signup",async (req,res) => {
