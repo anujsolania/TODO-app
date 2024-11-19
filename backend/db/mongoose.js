@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 
-mongoose.connect("mongodb+srv://anujsolania:scam2022@cluster0.kvu08ja.mongodb.net/REVTodoApp")
+require("dotenv").config()
+mongoose.connect(`${process.env.MONGO_URL}`)
 .then(() => {console.log("connected to DB")})
 .catch((err) => {console.log("Unable to connect DB",err)})
 

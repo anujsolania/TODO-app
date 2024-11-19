@@ -5,6 +5,7 @@ const { jwt, jwtkey } = require("./jwt/jwt")
 const app = express()
 const middleware = require("./midddleware/middleware")
 
+
 app.use(express.json())
 app.use(cors())
 
