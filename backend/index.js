@@ -55,7 +55,7 @@ app.post("/signin",async (req,res) => {
     if (!result) {
         return res.json({mssg: "USER DOESN'T EXISTS"})
     }
-    const token = jwt.sign({username},jwtkey)
+    const token = jwt.sign({username},jwtkey,{expiresIn: "1h"})
 
     res.json({mssg: `LOGGED IN SUCCESSFULLY AS ${username}`,token})
 })
