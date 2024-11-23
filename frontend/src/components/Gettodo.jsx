@@ -5,8 +5,11 @@ function Gettodo({proptodos}) {
         <div> 
             {proptodos.map(todo => (   
                 <div key={todo._id} style={{alignContent: "center"}} >
+
                 <h3>{todo.title}</h3>
                 <h3>{todo.description}</h3>
+                {todo.duedate ? <p>Duedate: {new Date(todo.duedate).toLocaleDateString("en-GB")}</p>: null}
+                
                 <button onClick={
                     async () => {
                         const token = localStorage.getItem("authtoken")

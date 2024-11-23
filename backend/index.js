@@ -63,7 +63,7 @@ app.post("/signin",async (req,res) => {
 
 //CREATE TODOS
 app.post("/createtodo",middleware,async (req,res) => {
-    const {title, description} = req.body
+    const {title, description,duedate} = req.body
 
     const username = req.username
     
@@ -81,7 +81,7 @@ app.post("/createtodo",middleware,async (req,res) => {
     const userid = response._id
 
     try {
-        const response2 = await Todo.create({title,description,userid})
+        const response2 = await Todo.create({title,description,duedate,userid})
         res.json({mssg: "todo created successfully",response2})
     } catch (error) {
         res.json({mssg: "unable to create todo",error: error.message})
