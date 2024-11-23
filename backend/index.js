@@ -67,8 +67,14 @@ app.post("/createtodo",middleware,async (req,res) => {
 
     const username = req.username
     
-    if (!(title&&description)) {
-        return res.send("send title/description")
+    if (!(title) && !(description)) {
+        return res.json({mssg: "Send title and description"})
+    }
+    if (!(title)) {
+        return res.json({mssg: "Send title"})
+    }
+    if (!(description)) {
+        return res.json({mssg: "Send description"})
     }
 
     const response = await User.findOne({username})
