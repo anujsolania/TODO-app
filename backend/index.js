@@ -141,6 +141,9 @@ app.patch("/:_id",middleware,async (req,res) => {
         await Todo.updateOne({_id: clickedtodoid},{$set: {duedate: newduedate}})
         return res.json({mssg: "Duedate updated successfully"})
     }
+    if ((result1) && (result2) && (result3)) {
+        return res.json({mssg: "No update detected"})
+    }
 })
 
 
