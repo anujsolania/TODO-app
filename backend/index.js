@@ -33,7 +33,7 @@ app.post("/signup",async (req,res) => {
         username,
         password
     })
-    res.json({mssg: "USER CREATED SUCCESSFULLY"})
+    res.json({mssg: "User created successfully"})
         
 })
 
@@ -53,11 +53,11 @@ app.post("/signin",async (req,res) => {
 
     const result = await User.findOne({username,password})
     if (!result) {
-        return res.json({mssg: "USER DOESN'T EXISTS"})
+        return res.json({mssg: "User doesn't exists"})
     }
     const token = jwt.sign({username},jwtkey,{expiresIn: "1h"})
 
-    res.json({mssg: `LOGGED IN SUCCESSFULLY AS ${username}`,token})
+    res.json({mssg: `Logged in successfully as ${username}`,token})
 })
 
 
@@ -82,9 +82,9 @@ app.post("/createtodo",middleware,async (req,res) => {
 
     try {
         const response2 = await Todo.create({title,description,duedate,userid})
-        res.json({mssg: "todo created successfully",response2})
+        res.json({mssg: "Todo created successfully",response2})
     } catch (error) {
-        res.json({mssg: "unable to create todo",error: error.message})
+        res.json({mssg: "Unable to create todo",error: error.message})
     }
 })
 
@@ -100,14 +100,47 @@ app.get("/gettodos",middleware,async (req,res) => {
     res.json({TODOS: response2})
 })
 
-
-//MARK AS COMPLETED
-app.patch("/:_id",middleware,(req,res) => {
+//MARK AS COMPLETED || EDIT TODO
+app.patch("/:_id",middleware,async (req,res) => {
     const clickedtodoid = req.params._id
 
-    Todo.updateOne({_id: clickedtodoid},{$set: {completed: true}})
-    .then(() => {res.json({mssg: "todo marked as completed"})})
-    .catch(() => {res.json({mssg: "UNABLE marked as completed"})} )
+    const {newtitle,newdescription,newduedate} = req.body
+
+    //FOR MARKING AS COMPLETED
+    if ((!newtitle) || (!newdescription)) {
+        await Todo.updateOne({_id: clickedtodoid},{$set: {completed: true}})
+        return res.json({mssg: "Todo marked as completed"})
+    }
+
+    //FOR EDIT 
+    const result1 = await Todo.findOne({title: newtitle})
+    const result2 = await Todo.findOne({description: newdescription})
+    const result3 = await Todo.findOne({duedate: newduedate})
+
+    if ((!result1) && (!result2) && (!result3)) {
+        await Todo.updateOne({_id: clickedtodoid},{$set: {title: newtitle,description: newdescription,duedate: newduedate}})
+        return res.json({mssg: "Title,Description and Duedate updated successfully"})
+    }
+    if ((!result1) && (!result2) && (result3)) {
+        await Todo.updateOne({_id: clickedtodoid},{$set: {title: newtitle,description: newdescription}})
+        return res.json({mssg: "Title and Description updated successfully"})
+    }
+    if ((result1) && (!result2) && (!result3)) {
+        await Todo.updateOne({_id: clickedtodoid},{$set: {title: newtitle}})
+        return res.json({mssg: "Description and Duedate updated successfully"})
+    }
+    if ((!result1) && (result2) && (result3)) {
+        await Todo.updateOne({_id: clickedtodoid},{$set: {title: newtitle}})
+        return res.json({mssg: "Title updated successfully"})
+    }
+    if ((result1) && (!result2) && (result3)) {
+        await Todo.updateOne({_id: clickedtodoid},{$set: {description: newdescription}})
+        return res.json({mssg: "Description updated successfully"})
+    }
+    if ((result1) && (result2) && (!result3)) {
+        await Todo.updateOne({_id: clickedtodoid},{$set: {duedate: newduedate}})
+        return res.json({mssg: "Duedate updated successfully"})
+    }
 })
 
 
@@ -117,7 +150,7 @@ app.delete("/:_id",middleware,(req,res) => {
 
     Todo.deleteOne({_id: clickedtodoid})
     .then(() => {res.json({mssg: "Todo deleted successfully"})})
-    .catch(() => {res.json({mssg: "UNABLE to delete TODO"})} )
+    .catch(() => {res.json({mssg: "Unable to delete Todo"})} )
 })
 
 app.listen(3000)

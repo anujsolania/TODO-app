@@ -6,10 +6,6 @@ import SignupLogin from './components/SignupLogin'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 
-
-
-
-
 function App() {
   const [todos,settodos] = useState([])
 
@@ -49,6 +45,6 @@ function App() {
 }
 
 export default App
-{/* <Createtodo/> */}
+
 
 
