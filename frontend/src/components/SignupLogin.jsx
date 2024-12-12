@@ -17,7 +17,15 @@ function SignupLogin() {
             <ul>
             <h2>HOME PAGE</h2>
                 <li>You can SIGNUP/LOGIN/LOGOUT</li>
-                <li>You can create/remove/markAsComplete TODOS</li>
+                <li>
+                You can perform CRUD operations with TODOS
+                    <ul>
+                    <li>Create</li>
+                    <li>Read</li>
+                    <li>Update</li>
+                    <li>Delete</li>
+                    </ul>
+                </li>
             </ul>
             </div>
 
