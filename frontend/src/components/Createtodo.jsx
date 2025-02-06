@@ -36,7 +36,8 @@ function Createtodo() {
                     settitle("");
                     setdescription("");
                     setduedate("");
-                    alert(`${json.mssg}/Login first`)  //accessing the backend mssg
+                    json.mssg == "INVALID TOKEN" ? alert(`${json.mssg}/Login first`) : alert(json.mssg)
+                     //accessing the backend mssg
                 }
             } >ADD TODO </button>
         </div>
